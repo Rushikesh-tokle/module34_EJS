@@ -1,6 +1,7 @@
 const express=require("express");
 const app=express();
 const path=require("path");
+
 const port =8080;
 
 app.set("view engine","ejs");
@@ -22,6 +23,12 @@ app.listen(port,()=>{
 
  app.get("/id/:username",(req,res)=>{
    let {username}=req.params;
-   console.log(username);
-   res.render("instagram",{user:username})
+  const instaData=require("./data.json");
+  data=instaData[username];
+  console.log(data);
+  if(data){
+   res.render("instagram",{data});
+  }else{
+    res.render("error");
+  }
  })
